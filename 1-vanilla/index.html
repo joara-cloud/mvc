@@ -12,11 +12,22 @@
     <header>
       <h2 class="container">검색</h2>
     </header>
+
     <div class="container">
-      <form action="">
-        <input type="text" placeholder="검색어를 입력하세요." autofocus>
+      <form>
+        <input type="text" placeholder="검색어를 입력하세요" autofocus>
         <button type="reset" class="btn-reset"></button>
       </form>
+
+      <div class="content">
+        <ul id="tabs" class="tabs">
+          <li>추천 검색어</li>
+          <li>최근 검색어</li>
+        </ul>
+        <div id="searchKeyword"></div>
+        <div id="searchHistory"></div>
+        <div id="searchResult"></div>
+      </div>
     </div>
   </div>
   <script type="module" src="./js/app.js"></script>
