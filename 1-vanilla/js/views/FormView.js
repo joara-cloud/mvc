@@ -1,6 +1,6 @@
 import View from './View.js';
 
-const tag = '[FormView]';
+var tag = '[FormView]';
 
 const FormView = Object.create(View); // View 객체를 복사함
 
@@ -21,6 +21,7 @@ FormView.showResetBtn = function(show = true) {
 FormView.bindEvents = function() {
 	this.on('submit', e => e.preventDefault());
 	this.inputEl.addEventListener('keyup', e => this.onKeyup(e))
+	this.resetEl.addEventListener('click', e =>  this.onClickReset(e))
 }
 
 FormView.onKeyup = function(e) {
@@ -28,10 +29,18 @@ FormView.onKeyup = function(e) {
 
 	this.showResetBtn(this.inputEl.value.length);
 
+	if(!this.inputEl.value.length) this.emit('@reset')
+
 	if(e.keyCode !== enter) return;
 	// enter일  때 todo
 	e.preventDefault();
-	this.emit('@submit', {input: this.inputEl.value});
+	this.emit('@submit', {input: this.inputEl.value}); // 이벤트가 발생했다는 것만 알려주면 됨 (결과를 보여주는거는 다른 view(ResultView)에서 진행)
+
+}
+
+FormView.onClickReset = function(e) {
+	this.emit('@reset') // controller에 reset이라는 이벤트를 전달
+	this.showResetBtn(false)
 }
 
 export default FormView;

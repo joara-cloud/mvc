@@ -10,6 +10,8 @@ ResultView.messages = {
 
 ResultView.setup = function (el) {
   this.init(el)
+
+  return this;
 }
 
 ResultView.render = function (data = []) {
@@ -18,18 +20,24 @@ ResultView.render = function (data = []) {
   this.show()
 }
 
-ResultView.getSearchResultsHtml = function (data) {
+
+ResultView.getSearchResultHtml = function(data) {
+  // debugger;
   return data.reduce((html, item) => {
-    html += this.getSearchItemHtml(item)
-    return html
-  }, '<ul>') + '</ul>'
+    html += this.getSearchResultItemHtml(item)
+    return html;
+  }, '<ul class="result_list">') + '</ul>'
 }
 
-ResultView.getSearchItemHtml = function (item) {
+ResultView.getSearchResultItemHtml = function(item) {
   return `<li>
-    <img src="${item.image}" />
-    <p>${item.name}</p>
-  </li>`
+            <div class="thumb"><img src="${item.image}" alt=""></div>
+            <p class="info">${item.name}</p>
+          </li>`;
+}
+
+ResultView.clearData = function(item) {
+  
 }
 
 export default ResultView
