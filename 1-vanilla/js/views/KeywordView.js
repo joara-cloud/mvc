@@ -17,13 +17,15 @@ KeywordView.render = function(data = []) { // 데이터를 받아서 화면에 �
 
 
 KeywordView.getKeywordsHtml = function(data = []) {
-    return data.reduce((html, item, index) => {
-        html += `<li>
-            <span class="number">${index + 1}</span>
-            ${item.keyword}
-        </li>`
-        return html;
-    }, '<ul class="list">') + '</ul>'
+    debugger
+
+    // return data.reduce((html, item, index) => {
+    //     html += `<li>
+    //         <span class="number">${index + 1}</span>
+    //         ${item.keyword}
+    //     </li>`
+    //     return html;
+    // }, '<ul class="list">') + '</ul>'
 }
 
 export default KeywordView;

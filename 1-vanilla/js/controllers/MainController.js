@@ -1,6 +1,7 @@
 import FormView from '../views/FormView.js';
 import ResultView from '../views/ResultView.js';
 import TabView from '../views/TabView.js';
+import KeywordView from '../views/KeywordView.js';
 
 // model
 import SearchModel from '../models/SearchModel.js';
@@ -15,6 +16,9 @@ export default {
 		FormView.setup(document.querySelector('form'))
 			.on('@submit', e => this.onSubmit(e.detail.input)) // e.detail.input 은 그냥 e의 속성 중 detail의 input에 입력값이 있기 때문
 			.on('@reset', e => this.onResetForm())
+
+		// KeywordView
+		KeywordView.setup(document.querySelector('#searchKeyword'))
 
 		// Result
 		ResultView.setup(document.getElementById('searchResult'));
