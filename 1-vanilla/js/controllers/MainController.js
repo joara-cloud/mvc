@@ -5,6 +5,7 @@ import KeywordView from '../views/KeywordView.js';
 
 // model
 import SearchModel from '../models/SearchModel.js';
+import KeywordModel from '../models/KeywordModel.js';
 
 const tag = '[MainController]';
 
@@ -19,6 +20,7 @@ export default {
 
 		// KeywordView
 		KeywordView.setup(document.querySelector('#searchKeyword'))
+			.on('@click', e => this.onClickKeyword(e.detail.keyword))
 
 		// Result
 		ResultView.setup(document.getElementById('searchResult'));
@@ -35,7 +37,20 @@ export default {
 	renderView() {
 		console.log(tag, 'renderView()');
 		TabView.setActiveTab(this.selectedTab);
+
+		if (this.selectedTab === '추천 검색어') {
+			this.fetchSearchKeyword(); // 모델에서 데이터를 가져오는 로직이기 때문에 따로 함수를 만들어줌
+		} else {
+
+		}
+
 		ResultView.hide();
+	},
+
+	fetchSearchKeyword() {
+		KeywordModel.list().then(data => {
+			KeywordView.render(data);
+		})
 	},
 
 	search(query) {
@@ -59,10 +74,16 @@ export default {
 	},
 
 	onSearchResult(data) {
+		TabView.hide();
+		KeywordView.hide();
 		ResultView.render(data)
 	},
 
 	onChangeTab() {
 		debugger;
+	},
+
+	onClickKeyword(keyword) {
+		this.search(keyword)
 	}
 }

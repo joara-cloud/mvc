@@ -105,3 +105,6 @@ form {
   width: 30%;
   height: 30%;
 }
+#searchResult .result_list > li {display:flex;}
+#searchResult .result_list .thumb {width:25%}
+#searchResult .result_list .info {width:75%;padding:0 10px}
