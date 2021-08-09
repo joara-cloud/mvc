@@ -4,6 +4,10 @@ const tag = '[KeywordView]';
 
 const KeywordView = Object.create(View);
 
+KeywordView.messages = {
+    NO_KEYWORDS: '추천 검색어가 없습니다.'
+};
+
 KeywordView.setup = function(el) {
     this.init(el);
 
@@ -11,9 +15,10 @@ KeywordView.setup = function(el) {
 }
 
 KeywordView.render = function(data = []) { // 데이터를 받아서 화면에 뿌려줄 함수
-    this.el.innerHTML = data.length ? this.getKeywordsHtml(data) : '추천 검색어가 없습니다.'; // 데이터가 있을 경우 or 없을 경우
+    this.el.innerHTML = data.length ? this.getKeywordsHtml(data) : this.messages.NO_KEYWORDS; // 데이터가 있을 경우 or 없을 경우
     this.bindClickEvent();
     this.show();
+    return this;
 }
 
 KeywordView.getKeywordsHtml = function(data = []) {

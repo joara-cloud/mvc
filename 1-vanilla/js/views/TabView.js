@@ -15,6 +15,8 @@ TabView.setActiveTab = function(tabName) {
   Array.from(this.el.querySelectorAll('li')).forEach(li =>{
     li.className = li.innerHTML === tabName ? 'active' : '';
   })
+
+  this.el.style.display = 'flex'
 }
 
 TabView.bindClick = function() {
