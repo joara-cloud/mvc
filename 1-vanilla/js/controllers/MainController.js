@@ -8,7 +8,6 @@ import HistoryView from '../views/HistoryView.js';
 import SearchModel from '../models/SearchModel.js';
 import KeywordModel from '../models/KeywordModel.js';
 import HistoryModel from '../models/HistoryModel.js';
-import HistroryView from '../views/HistoryView.js';
 
 const tag = '[MainController]';
 
@@ -27,8 +26,8 @@ export default {
 
 		// HistoryView
 		HistoryView.setup(document.querySelector('#searchHistory'))
-		.on('@click', e => this.onClickHistory(e.detail.keyword))
-		.on('@remove', e => this.onRemoveHistory(e.detail.keyword))
+			.on('@click', e => this.onClickHistory(e.detail.keyword))
+			.on('@remove', e => this.onRemoveHistory(e.detail.keyword))
 
 		// Result
 		ResultView.setup(document.getElementById('searchResult'));
@@ -37,8 +36,8 @@ export default {
 		TabView.setup(document.querySelector('#tabs'))
 			.on('@change', e => this.onChangeTab(e.detail.tabName))
 
-		// this.selectedTab = '추천 검색어';
-		this.selectedTab = '최근 검색어';
+		this.selectedTab = '추천 검색어';
+		// this.selectedTab = '최근 검색어';
 		this.renderView();
 		
 	},
@@ -49,7 +48,7 @@ export default {
 
 		if (this.selectedTab === '추천 검색어') {
 			this.fetchSearchKeyword(); // 모델에서 데이터를 가져오는 로직이기 때문에 따로 함수를 만들어줌
-			HistroryView.hide()
+			HistoryView.hide()
 		} else {
 			this.fetchSearchHistory();
 			KeywordView.hide()
@@ -80,6 +79,9 @@ export default {
 			.then(data => {
 				this.onSearchResult(data)
 			})
+
+		// add api
+		HistoryModel.add(query) // 모든 클릭 이벤트가 일어날때마다 해당 함수(search)로 수렴한다 따라서 해당 부분에 히스토리 추가 로직을 넣음
 	},
 
 	onSubmit(input) {
@@ -96,11 +98,13 @@ export default {
 	onSearchResult(data) {
 		TabView.hide();
 		KeywordView.hide();
+		HistoryView.hide();
 		ResultView.render(data)
 	},
 
-	onChangeTab() {
-		debugger;
+	onChangeTab(tabName) {
+		this.selectedTab = tabName;
+		this.renderView();
 	},
 
 	onClickKeyword(keyword) {

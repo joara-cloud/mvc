@@ -46,4 +46,8 @@ KeywordView.onClickKeyword = function(e) {
     this.emit('@click', {keyword});
 }
 
+KeywordView.addKeyword = function(keyword) {
+
+}
+
 export default KeywordView;
