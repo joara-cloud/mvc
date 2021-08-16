@@ -1,6 +1,6 @@
 import KeywordView from './KeywordView.js';
 
-const tag = '[HistroryView]';
+const tag = '[HistroryView] ';
 
 const HistroryView = Object.create(KeywordView);
 
