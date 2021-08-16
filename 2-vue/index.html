@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>MVC with Vanilla.JS</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+  <div id="app"> <!-- 해당 부분에 vue인스턴스가 마운팅됨 -->
+    <header>
+      <h2 class="container">검색</h2>
+    </header>
+
+    <div class="container">
+      <form v-on:submit.prevent="onSubmit"> <!-- v-on DOM에서 일어나는 이벤트를 리슨하는 역할 -->
+        <input type="text" placeholder="검색어를 입력하세요" autofocus v-model="query" v-on:keyup="onKeyup">
+        <button type="reset" class="btn-reset" v-show="query.length" v-on:click="onReset"></button>
+      </form>
+
+      <div v-if="submitted">
+        <div v-if="searchRestult.length">
+          <ul>
+            <li v-for="item in searchRestult">
+              <img v-bind:src="item.image" alt=""> {{item.name}} <!-- v-bind attrubute에 값을 바인딩 -->
+            </li>
+          </ul>
+        </div>
+        <div v-else>
+          {{query}} 검색어로 찾을수 없습니다.
+        </div>
+      </div>
+
+      <div v-else>
+        <ul class="tabs">
+          <li v-for="tab in tabs" v-bind:class="{active: tab === selectedTab}" @click="onClickTab(tab)">
+            {{tab}}
+          </li>
+        </ul>
+        <div v-if="selectedTab === tabs[0]">
+          <div v-if="keywords.length">
+            <ul class="list">
+              <li v-for="(item, index) in keywords"
+                  v-on:click="onClickKeyword(item.keyword)">
+                <span class="number">{{index+1}}</span>
+                {{item.keyword}}
+              </li>
+            </ul>
+          </div>
+          <div v-else>
+            추천 검색어가 없습니다.
+          </div>
+        </div>
+        <div v-else>
+          최근 검색어 목록
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>
